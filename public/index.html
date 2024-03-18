@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Upload App</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        /* Custom file input styles */
+        input[type='file'] {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 2em;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-label:hover {
+            background-color: #45a049;
+        }
+
+        .file-input-wrapper {
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Uploading animation styles */
+        .upload-animation {
+            display: none;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: #4CAF50;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <!-- Header -->
+        <h1 class="text-3xl font-bold text-center mb-6">CSV Upload App</h1>
+
+        <!-- File Upload Form -->
+        <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post"
+            class="flex items-center justify-center space-x-4">
+            <!-- Custom file input -->
+            <label for="csvFile"
+                class="file-label bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded cursor-pointer transition duration-300 ease-in-out">
+                <span>Select CSV File</span>
+                <input type="file" name="csvFile" accept=".csv" id="csvFile" class="hidden" />
+            </label>
+            <!-- Upload animation -->
+            <div class="upload-animation"></div>
+            <!-- Upload button -->
+            <button type="submit"
+                class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
+                <span>Upload</span>
+            </button>
+        </form>
+
+        <!-- Uploaded CSV Files -->
+        <h2 class="text-xl font-bold mt-8">Uploaded CSV Files:</h2>
+        <ul id="csvList" class="list-disc pl-8 mt-4">
+            <!-- CSV file list will be dynamically populated here -->
+        </ul>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to fetch and display the list of uploaded CSV files
+        fetch('/files')
+            .then(response => response.json())
+            .then(files => {
+                const csvList = document.getElementById('csvList');
+                files.forEach(file => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `/view/${file}`;
+                    link.textContent = file;
+                    li.appendChild(link);
+                    csvList.appendChild(li);
+                });
+            });
+
+        // Show uploading animation when form is submitted
+        document.getElementById('uploadForm').addEventListener('submit', function () {
+            const uploadAnimation = document.querySelector('.upload-animation');
+            uploadAnimation.style.display = 'inline-block';
+        });
+
+        // Show selected file name
+        const fileInput = document.getElementById('csvFile');
+        fileInput.addEventListener('change', function () {
+            const fileNameDisplay = document.querySelector('.file-label span');
+            const fileName = this.files[0].name;
+            fileNameDisplay.textContent = fileName;
+        });
+    </script>
+</body>
+
+</html>
