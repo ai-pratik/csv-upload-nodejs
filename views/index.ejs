@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Upload App</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-6">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center mb-6">CSV Upload App</h1>
+
+    <!-- File Upload Form -->
+    <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post" class="flex items-center justify-center space-x-4">
+      <!-- Custom file input -->
+      <label for="csvFile" class="file-label bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded cursor-pointer transition duration-300 ease-in-out">
+        <span>Select CSV File</span>
+        <input type="file" name="csvFile" accept=".csv" id="csvFile" class="hidden" />
+      </label>
+      <!-- Upload animation -->
+      <div class="upload-animation"></div>
+      <!-- Upload button -->
+      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
+        <span>Upload</span>
+      </button>
+    </form>
+
+    <!-- Uploaded CSV Files -->
+    <h2 class="text-xl font-bold mt-8">Uploaded CSV Files:</h2>
+    <ul id="csvList" class="list-disc pl-8 mt-4">
+      <% files.forEach(file => { %>
+        <li><a href="/view/<%= file %>"><%= file %></a></li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/scripts/script.js"></script>
+</body>
+</html>
