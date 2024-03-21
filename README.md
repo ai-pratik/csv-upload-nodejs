@@ -1,21 +1,26 @@
-#CSV Upload Node.js
+# CSV Upload Node.js
+
 This repository contains a Node.js project for uploading and processing CSV files. It provides an easy-to-use setup for local development.
 
-Local Setup
+## Local Setup
+
 To set up this project locally, follow these steps:
 
-Prerequisites
+### Prerequisites
+
 Ensure you have the following installed on your machine:
 
-Node.js (version 21.5.0 or compatible)
-npm (Node Package Manager)
-MongoDB (Make sure MongoDB is installed and running on your local machine)
-Installation
-Clone this repository to your local machine using the following command:
+- Node.js (version 21.5.0 or compatible)
+- npm (Node Package Manager)
+- MongoDB (Make sure MongoDB is installed and running on your local machine)
 
-bash
-Copy code
-git clone git@github.com:ai-pratik/csv-upload-nodejs.git
+### Installation
+
+1. Clone this repository to your local machine using the following command:
+
+   ```bash
+   git clone git@github.com:ai-pratik/csv-upload-nodejs.git
+
 Navigate to the project directory:
 
 bash
